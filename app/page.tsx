@@ -1,101 +1,127 @@
-import Image from "next/image";
+"use client"
+
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import Image from "next/image"
+import { FaInstagram, FaFacebookF, FaLinkedinIn, FaGithub } from "react-icons/fa"
+import hero from "./public/hero.jpg"
+import { motion } from "framer-motion"
+import { useState, useEffect } from "react"
+
+const MotionLink = motion(Link)
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [typedText, setTypedText] = useState("")
+  const fullText = "Front-End"
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+  useEffect(() => {
+    let i = 0
+    const typingInterval = setInterval(() => {
+      if (i < fullText.length) {
+        setTypedText(fullText.slice(0, i + 1))
+        i++
+      } else {
+        clearInterval(typingInterval)
+      }
+    }, 100)
+
+    return () => clearInterval(typingInterval)
+  }, [])
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3,
+      },
+    },
+  }
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+      },
+    },
+  }
+
+  return (
+    <motion.div
+      className="flex flex-col lg:flex-row items-center justify-between min-h-[calc(100vh-200px)] px-8"
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+    >
+      {/* Image Section */}
+      <motion.div className="flex-shrink-0 mb-8 lg:mb-0 lg:mr-8" variants={itemVariants}>
+        <motion.div
+          className="rounded-full overflow-hidden h-60 w-60 md:h-80 md:w-80 shadow-lg mx-auto"
+          whileHover={{ scale: 1.05, rotate: 5 }}
+          transition={{ type: "spring", stiffness: 300 }}
         >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          <Image src={hero || "/placeholder.svg"} alt="Hero" className="w-full h-full object-cover" />
+        </motion.div>
+      </motion.div>
+
+      {/* Text Section */}
+      <motion.div
+        className="flex flex-col items-center justify-center text-center lg:text-left"
+        variants={containerVariants}
+      >
+        <motion.h1 className="lg:text-6xl sm:text-4xl font-bold mb-4" variants={itemVariants}>
+          Hello, I am Hashir
+        </motion.h1>
+        <motion.p className="lg:text-xl mb-8 max-w-2xl" variants={itemVariants}>
+          I am a passionate <span className="font-bold text-primary">{typedText}</span> web developer specializing in
+          creating responsive and user-friendly websites. With expertise in React, Next.js, and modern web technologies,
+          I bring ideas to life through code.
+        </motion.p>
+
+        {/* Button Section */}
+        <motion.div
+          className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-6"
+          variants={containerVariants}
         >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+          <motion.div variants={itemVariants}>
+            <Button asChild>
+              <Link href="/projects">View My Projects</Link>
+            </Button>
+          </motion.div>
+          <motion.div variants={itemVariants}>
+            <Button asChild variant="outline">
+              <Link href="/contact">Contact Me</Link>
+            </Button>
+          </motion.div>
+        </motion.div>
+
+        <motion.div className="flex space-x-4 mt-6" variants={containerVariants}>
+          {[
+            { href: "https://www.instagram.com/eyemnoob/", icon: FaInstagram, label: "Instagram" },
+            { href: "https://www.facebook.com/hashirdada.irshad", icon: FaFacebookF, label: "Facebook" },
+            { href: "https://linkedin.com/in/hashir-hussain-1a5a3b2ba", icon: FaLinkedinIn, label: "LinkedIn" },
+            { href: "https://github.com/hashir-qt", icon: FaGithub, label: "GitHub" },
+          ].map((social, index) => (
+            <MotionLink
+              key={index}
+              href={social.href}
+              target="_blank"
+              aria-label={social.label}
+              variants={itemVariants}
+              whileHover={{ scale: 1.2, rotate: 5 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <social.icon className="text-primary hover:text-accent text-2xl" />
+            </MotionLink>
+          ))}
+        </motion.div>
+      </motion.div>
+    </motion.div>
+  )
 }
+
