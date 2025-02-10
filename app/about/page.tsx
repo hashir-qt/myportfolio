@@ -95,7 +95,6 @@ export default function About() {
       <motion.h1 className="text-4xl font-bold mb-8" variants={itemVariants}>
         About Me
       </motion.h1>
-
       <MotionCard className="w-full max-w-3xl mb-8" variants={itemVariants}>
   <CardContent className="p-6">
     <motion.p className="lg:text-lg md:text-lg sm:text-xs mb-4" variants={itemVariants}>
@@ -111,15 +110,15 @@ export default function About() {
     <motion.p className="lg:text-lg md:text-lg mb-4" variants={itemVariants}>
       Currently, I am enrolled in a Certified Cloud Native AI Engineer program, further enhancing my skills in cloud 
       computing and AI-driven solutions. My projects include a dynamic cryptocurrency blog, an e-commerce marketplace, 
-      and an admin dashboard—all built with Next.js and modern web technologies.
+      and an admin dashboard&mdash;all built with Next.js and modern web technologies.
     </motion.p>
     <motion.p className="lg:text-lg md:text-lg mb-4" variants={itemVariants}>
       I actively participate in hackathons, continuously learning and refining my craft. Beyond coding, I have a love 
-      for anime, particularly 'Attack on Titan,' and I also write on Medium, sharing insights and knowledge about 
+      for anime, particularly <em>Attack on Titan</em>, and I also write on Medium, sharing insights and knowledge about 
       web development and tech trends.
     </motion.p>
     <motion.p className="lg:text-lg md:text-lg" variants={itemVariants}>
-      Whether it's front-end design, backend architecture, or cloud-native applications, I thrive on solving complex 
+      Whether it&apos;s front-end design, backend architecture, or cloud-native applications, I thrive on solving complex 
       challenges and staying ahead of the latest trends in the ever-evolving tech landscape.
     </motion.p>
   </CardContent>
